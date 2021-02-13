@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
 
-export default () => {
-  const store = createStore(reducers, {}, applyMiddleware(thunk));
+export default (state = {}) => {
+  const store = createStore(reducers, state, applyMiddleware(thunk));
   return store;
 };

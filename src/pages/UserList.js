@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { fetchUsers } from "../actions";
 
 class UserList extends React.Component {
+  static loadData(store) {
+    return store.dispatch(fetchUsers());
+  }
   componentDidMount() {
     console.log(this.props);
     this.props.dispatch(fetchUsers());

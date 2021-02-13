@@ -4,14 +4,23 @@
 // const Home = require("../src/components/Home").default;
 import "babel-polyfill";
 import express from "express";
+import { matchRoutes } from "react-router-config";
+import Routes from "../src/Routes";
 import render from "./render";
 import createStore from "../src/store";
+
 const app = express();
 
 app.use(express.static("public"));
 app.get("*", (req, res) => {
   const store = createStore();
-  res.send(render(req, store));
+  const promises = matchRoutes(Routes, req.path).map(({ route }) => {
+    return route.component.loadData ? route.component.loadData(store) : null;
+  });
+
+  Promise.all(promises).then(() => {
+    res.send(render(req, store));
+  });
 });
 
 app.listen(3000, () => {
