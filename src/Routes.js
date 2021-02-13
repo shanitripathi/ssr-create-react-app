@@ -13,3 +13,4 @@ const Routes = () => {
 };
 
 export default Routes;
+// This is part one without the use of react router config
